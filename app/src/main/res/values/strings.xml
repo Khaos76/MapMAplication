@@ -7,4 +7,5 @@
     <string name="ld_positionX">Wartość X dół</string>
     <string name="ld_positionY">Wartość Y dół</string>
     <string name="btnSwitch">X,Y to \u03C8, \u03BB</string>
+    <string name="btnSend">Wyślij</string>
 </resources>
