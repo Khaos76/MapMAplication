@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MapMAplication</string>
+    <string name="ru_position">Pozycja GR</string>
+    <string name="ru_positionX">Wartość X góra</string>
+    <string name="ru_positionY">Wartość Y góra</string>
+    <string name="ld_position">Pozycja DR</string>
+    <string name="ld_positionX">Wartość X dół</string>
+    <string name="ld_positionY">Wartość Y dół</string>
+    <string name="btnSwitch">X,Y to \u03C8, \u03BB</string>
 </resources>
