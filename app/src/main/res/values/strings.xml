@@ -17,6 +17,6 @@
     <string name="btnSwitchXY">X, Y na \u03C8, \u03BB</string>
     <string name="btnSwitchFL">\u03C8, \u03BB na X, Y</string>
 
-
+    <string name="aru_position">Współrzędne \n mapy</string>
     <string name="btnSend">Wyślij</string>
 </resources>
