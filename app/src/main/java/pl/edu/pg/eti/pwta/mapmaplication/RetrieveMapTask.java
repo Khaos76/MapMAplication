@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -19,10 +21,12 @@ import java.io.IOException;
 
 class RetrieveMapTask extends AsyncTask<String, Void, Object> {
     private static final String NAMESPACE = "map";
-    private static final String URL = "http://192.168.113.202:8080/MapWS/MapWS";
+//    private static final String URL = "http://192.168.113.202:8080/MapWS/MapWS";
+    private static final String URL = "http://192.168.1.33:8080/MapWS/MapWS";
     private static final String METHOD_NAME = "getMap";
     private static final String SOAP_ACTION = "map/getMap";
 
+    public RelativeLayout progress;
     public ImageView imageView;
 
     protected Object doInBackground(String... urls) {
@@ -48,8 +52,8 @@ class RetrieveMapTask extends AsyncTask<String, Void, Object> {
     protected void onPostExecute(Object map) {
         final byte[] decodedBytes = Base64.decode(map.toString(), Base64.DEFAULT);
         Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-
-
         imageView.setImageBitmap(decodedBitmap);
+
+        progress.setVisibility(View.GONE);
     }
 }
