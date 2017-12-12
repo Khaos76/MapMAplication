@@ -50,6 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         RetrieveMapTask task = new RetrieveMapTask();
         task.imageView = image;
         task.execute();
+        //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
     @Override
