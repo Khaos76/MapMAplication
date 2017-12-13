@@ -42,14 +42,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         image = findViewById(R.id.mapsView);
 
-        textRec.setText(" Górny Prawy: X = 0 px, Y = 0 px; \n Dolny Lewy: X = "
-                + image.getHeight()
-                + " px Y = "
-                + image.getWidth()+" px;");
-
         RetrieveMapTask task = new RetrieveMapTask();
         task.imageView = image;
         task.progress = findViewById(R.id.loadingPanel);
+        task.textView = textRec;
         task.execute();
     }
 

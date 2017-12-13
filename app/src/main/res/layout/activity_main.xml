@@ -166,10 +166,9 @@
     </GridLayout>
 
     <FrameLayout
+        android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
 
         <ImageView
             android:layout_width="wrap_content"
@@ -177,7 +176,7 @@
             android:id="@+id/mapsView"
             android:adjustViewBounds="true"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/pultusk_smpl"
+            android:src="@drawable/loading"
             android:contentDescription="@string/mapaOpis" />
 
         <RelativeLayout
