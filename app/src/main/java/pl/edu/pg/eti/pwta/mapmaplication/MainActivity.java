@@ -115,16 +115,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnSend:
                 try {
-                    task.setPixelsDimensions(
-                            Integer.parseInt(editXup.getText().toString()),
-                            Integer.parseInt(editYup.getText().toString()),
-                            Integer.parseInt(editXdn.getText().toString()),
-                            Integer.parseInt(editYdn.getText().toString())
-                    );
-                    task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
-                }catch (Exception e){
+                    if (bSwitch) {
+                        task.setCoordsDimensions(
+                                Double.parseDouble(editXup.getText().toString()),
+                                Double.parseDouble(editYup.getText().toString()),
+                                Double.parseDouble(editXdn.getText().toString()),
+                                Double.parseDouble(editYdn.getText().toString())
+                        );
+                        task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_COORDS_METHOD_NAME);
+                    } else {
+                        task.setPixelsDimensions(
+                                Integer.parseInt(editXup.getText().toString()),
+                                Integer.parseInt(editYup.getText().toString()),
+                                Integer.parseInt(editXdn.getText().toString()),
+                                Integer.parseInt(editYdn.getText().toString())
+                        );
+                        task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
+                    }
+                } catch (Exception e) {
                     Context context = getApplicationContext();
-                    Toast toast = Toast.makeText(context,"Proszę wprowadzić wartości",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(context, "Proszę wprowadzić wartości", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 break;
@@ -136,23 +146,4 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
-
-    /**
-     * Przeliczanie dpi na cm rzeczywiste
-     *
-     * @param V View
-     */
-    public void pixelToDegree(View V) {
-        float mXDpi, mYDpi;
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        mXDpi = metrics.xdpi;
-        mYDpi = metrics.ydpi;
-
-        float mCmToPixelsX = mXDpi / 2.54f;  //ilość px na cm
-        float mCmToPixelsY = mYDpi / 2.54f;
-    }
-
-
 }
