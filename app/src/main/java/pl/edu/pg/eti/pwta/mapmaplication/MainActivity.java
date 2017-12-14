@@ -1,14 +1,19 @@
 package pl.edu.pg.eti.pwta.mapmaplication;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.Console;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -68,11 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     textRUY.setText(getResources().getText(R.string.ru_positionY));
                     textLDX.setText(getResources().getText(R.string.ld_positionX));
                     textLDY.setText(getResources().getText(R.string.ld_positionY));
-                    textRec.setText(" Górny Prawy: X = 0 px, Y = 0 px; \n Dolny Lewy: X = "
-                            + image.getHeight()
-                            + " px Y = "
-                            + image.getWidth()
-                            + " px;");
+
 
                     editXup.setInputType(InputType.TYPE_CLASS_NUMBER);
                     editYup.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -134,4 +135,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         float mCmToPixelsX = mXDpi / 2.54f;  //ilość px na cm
         float mCmToPixelsY = mYDpi / 2.54f;
     }
+
+
 }
