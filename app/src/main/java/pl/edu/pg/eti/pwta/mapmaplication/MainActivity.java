@@ -103,8 +103,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         Integer.parseInt(editYdn.getText().toString())
                 );
                 task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
-
                 break;
+
             default:
                 break;
         }
