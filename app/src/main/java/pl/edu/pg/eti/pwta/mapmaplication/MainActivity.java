@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    private Button btnSwitch, btnSend;
+    private Button btnSwitch, btnSend, btnBack;
     private TextView textRUX, textRUY, textLDX, textLDY, textRec;
     private EditText editXup, editYup, editXdn, editYdn;
     Boolean bSwitch = false;
@@ -26,8 +26,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         btnSwitch = findViewById(R.id.btnSwitch);
         btnSend = findViewById(R.id.btnSend);
+        btnBack = findViewById(R.id.btnMapBack);
         btnSwitch.setOnClickListener(this);
         btnSend.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
 
         textRUX = findViewById(R.id.positionXup);
         textRUY = findViewById(R.id.positionYup);
@@ -51,6 +53,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v){
+
+        RetrieveMapTask task = new RetrieveMapTask();
+        task.imageView = image;
+        task.progress = findViewById(R.id.loadingPanel);
+        task.textView = textRec;
+
+
         switch (v.getId()) {
             case R.id.btnSwitch:
                 if (bSwitch) {
@@ -92,10 +101,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.btnSend:
-                RetrieveMapTask task = new RetrieveMapTask();
-                task.imageView = image;
-                task.progress = findViewById(R.id.loadingPanel);
-                task.textView = textRec;
                 task.setPixelsDimensions(
                         Integer.parseInt(editXup.getText().toString()),
                         Integer.parseInt(editYup.getText().toString()),
@@ -103,6 +108,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         Integer.parseInt(editYdn.getText().toString())
                 );
                 task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
+                break;
+            case R.id.btnMapBack:
+                task.execute(RetrieveMapTask.GET_MAP_METHOD_NAME);
                 break;
 
             default:
