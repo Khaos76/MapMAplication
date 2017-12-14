@@ -1,6 +1,7 @@
 package pl.edu.pg.eti.pwta.mapmaplication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Console;
 
@@ -43,9 +45,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         textRec = findViewById(R.id.recived_pos);
 
         editXup = findViewById(R.id.setXup);
+        editXup.setText("0");
         editYup = findViewById(R.id.setYup);
+        editYup.setText("0");
         editXdn = findViewById(R.id.setXdn);
+        editXdn.setText("1000");
         editYdn = findViewById(R.id.setYdn);
+        editYdn.setText("1000");
 
         image = findViewById(R.id.mapsView);
 
@@ -74,10 +80,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     textLDX.setText(getResources().getText(R.string.ld_positionX));
                     textLDY.setText(getResources().getText(R.string.ld_positionY));
 
-
+                    editXup.setText("");
                     editXup.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editYup.setText("");
                     editYup.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editXdn.setText("");
                     editXdn.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editYdn.setText("");
                     editYdn.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                     bSwitch = false;
@@ -91,10 +100,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             + "\u00B0 , Y =  \u00B0; \n Dolny Lewy: X =  \u00B0"
                             +  " Y = "
                             +  "\u00B0;");
-
+                    editXup.setText("");
                     editXup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    editYup.setText("");
                     editYup.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    editXdn.setText("");
                     editXdn.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    editYdn.setText("");
                     editYdn.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
                     bSwitch = true;
@@ -102,13 +114,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.btnSend:
-                task.setPixelsDimensions(
-                        Integer.parseInt(editXup.getText().toString()),
-                        Integer.parseInt(editYup.getText().toString()),
-                        Integer.parseInt(editXdn.getText().toString()),
-                        Integer.parseInt(editYdn.getText().toString())
-                );
-                task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
+                try {
+                    task.setPixelsDimensions(
+                            Integer.parseInt(editXup.getText().toString()),
+                            Integer.parseInt(editYup.getText().toString()),
+                            Integer.parseInt(editXdn.getText().toString()),
+                            Integer.parseInt(editYdn.getText().toString())
+                    );
+                    task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
+                }catch (Exception e){
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context,"Proszę wprowadzić wartości",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
             case R.id.btnMapBack:
                 task.execute(RetrieveMapTask.GET_MAP_METHOD_NAME);
