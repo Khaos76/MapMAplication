@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         task.imageView = image;
         task.progress = findViewById(R.id.loadingPanel);
         task.textView = textRec;
-        task.execute();
+        task.execute(RetrieveMapTask.GET_MAP_METHOD_NAME);
     }
 
     @Override
@@ -92,7 +92,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.btnSend:
-                // ToDo: dodać logikę wysyłania
+                RetrieveMapTask task = new RetrieveMapTask();
+                task.imageView = image;
+                task.progress = findViewById(R.id.loadingPanel);
+                task.textView = textRec;
+                task.setPixelsDimensions(
+                        Integer.parseInt(editXup.getText().toString()),
+                        Integer.parseInt(editYup.getText().toString()),
+                        Integer.parseInt(editXdn.getText().toString()),
+                        Integer.parseInt(editYdn.getText().toString())
+                );
+                task.execute(RetrieveMapTask.GET_MAP_SECTION_BY_PIXELS_METHOD_NAME);
 
                 break;
             default:

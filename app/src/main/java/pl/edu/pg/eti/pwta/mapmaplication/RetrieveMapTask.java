@@ -1,48 +1,82 @@
 package pl.edu.pg.eti.pwta.mapmaplication;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.ksoap2.serialization.PropertyInfo;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.Objects;
 
 class RetrieveMapTask extends AsyncTask<String, Void, Object> {
     private static final String NAMESPACE = "map";
     private static final String URL = "http://192.168.113.202:8080/MapWS/MapWS";
 //    private static final String URL = "http://192.168.1.33:8080/MapWS/MapWS";
-    private static final String METHOD_NAME = "getMap";
-    private static final String SOAP_ACTION = "map/getMap";
+    public static final String GET_MAP_METHOD_NAME = "getMap";
+    public static final String GET_MAP_SECTION_BY_PIXELS_METHOD_NAME = "getMapSectionByPixels";
 
     public RelativeLayout progress;
     public ImageView imageView;
     public TextView textView;
 
+    private int x1, y1, x2, y2;
+
+    public void setPixelsDimensions(int x1, int y1, int x2, int y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+
     protected Object doInBackground(String... urls) {
         try {
-            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+            String methodName = urls[0];
+
+            SoapObject request = new SoapObject(NAMESPACE, methodName);
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.setOutputSoapObject(request);
             HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 
+            if (Objects.equals(methodName, GET_MAP_SECTION_BY_PIXELS_METHOD_NAME)) {
+                PropertyInfo propX1 = new PropertyInfo();
+                propX1.name = "x1";
+                propX1.type = PropertyInfo.STRING_CLASS;
+                propX1.setValue(x1);
+                request.addProperty(propX1);
+
+                PropertyInfo propY1 = new PropertyInfo();
+                propY1.name = "y1";
+                propY1.type = PropertyInfo.STRING_CLASS;
+                propY1.setValue(y1);
+                request.addProperty(propY1);
+
+                PropertyInfo propX2 = new PropertyInfo();
+                propX2.name = "x2";
+                propX2.type = PropertyInfo.STRING_CLASS;
+                propX2.setValue(x2);
+                request.addProperty(propX2);
+
+                PropertyInfo propY2 = new PropertyInfo();
+                propY2.name = "y2";
+                propY2.type = PropertyInfo.STRING_CLASS;
+                propY2.setValue(y2);
+                request.addProperty(propY2);
+            }
+
             try {
-                androidHttpTransport.call(SOAP_ACTION, envelope);
+                androidHttpTransport.call(NAMESPACE + "/" + methodName, envelope);
             } catch (IOException | XmlPullParserException e) {
                 e.printStackTrace();
             }
