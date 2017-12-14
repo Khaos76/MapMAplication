@@ -95,9 +95,9 @@ class RetrieveMapTask extends AsyncTask<String, Void, Object> {
             imageView.setImageBitmap(decodedBitmap);
             progress.setVisibility(View.GONE);
             textView.setText(" Górny Prawy: X = 0 px, Y = 0 px; \n Dolny Lewy: X = "
-                    + decodedBitmap.getHeight()
+                    + decodedBitmap.getWidth()
                     + " px Y = "
-                    + decodedBitmap.getWidth()+" px;");
+                    + decodedBitmap.getHeight() +" px;");
 
         } catch (Exception e) {
             e.printStackTrace();
