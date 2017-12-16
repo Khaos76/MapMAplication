@@ -21,8 +21,9 @@ import java.util.Objects;
 
 class RetrieveMapTask extends AsyncTask<String, Void, Object> {
     private static final String NAMESPACE = "map";
-//    private static final String URL = "http://192.168.113.202:8080/MapWS/MapWS";
-    private static final String URL = "http://192.168.1.33:8080/MapWS/MapWS";
+    //private static final String URL = "http://192.168.113.202:8080/MapWS/MapWS";
+    private static final String URL = "http://192.168.43.147:8080/MapWS/MapWS"; //laptop
+    //private static final String URL = "http://192.168.1.33:8080/MapWS/MapWS";
     public static final String GET_MAP_METHOD_NAME = "getMap";
     public static final String GET_MAP_SECTION_BY_PIXELS_METHOD_NAME = "getMapSectionByPixels";
     public static final String GET_MAP_SECTION_BY_COORDS_METHOD_NAME = "getMapSectionByCoords";
@@ -87,30 +88,33 @@ class RetrieveMapTask extends AsyncTask<String, Void, Object> {
             if (Objects.equals(methodName, GET_MAP_SECTION_BY_COORDS_METHOD_NAME)) {
                 PropertyInfo propX1 = new PropertyInfo();
                 propX1.name = "widthCoord1";
-                propX1.type = PropertyInfo.STRING_CLASS;
+                propX1.type = Double.class;
                 propX1.setValue(String.valueOf(widthCoord1));
                 request.addProperty(propX1);
 
                 PropertyInfo propY1 = new PropertyInfo();
                 propY1.name = "lengthCoord1";
-                propY1.type = PropertyInfo.STRING_CLASS;
+                propY1.type = Double.class;
                 propY1.setValue(String.valueOf(lengthCoord1));
                 request.addProperty(propY1);
 
                 PropertyInfo propX2 = new PropertyInfo();
                 propX2.name = "widthCoord2";
-                propX2.type = PropertyInfo.STRING_CLASS;
+                propX2.type = Double.class;
                 propX2.setValue(String.valueOf(widthCoord2));
                 request.addProperty(propX2);
 
                 PropertyInfo propY2 = new PropertyInfo();
                 propY2.name = "lengthCoord2";
-                propY2.type = PropertyInfo.STRING_CLASS;
+                propY2.type = Double.class;
                 propY2.setValue(String.valueOf(lengthCoord2));
                 request.addProperty(propY2);
             }
 
             try {
+                MarshalDouble md = new MarshalDouble();
+                md.register(envelope);
+
                 androidHttpTransport.call(NAMESPACE + "/" + methodName, envelope);
             } catch (IOException | XmlPullParserException e) {
                 e.printStackTrace();
